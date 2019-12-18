@@ -178,7 +178,58 @@ INSTALLED_APPS = [
 ]
 
 
+# para cambiar el titulo del panel de admin django, se debe cambiar en el archivo 'urls.py' de la app principal
+from django.contrib import admin
+from django.urls import path, include
+urlspatterns = [
+	path('', include('core.urls')),
+	path('admin/', admin.site.urls)
+]
+admin.site.site_header = "Administracion de APP"
+admin.site.index_title = "Titulo de la pestaña"
+admin.site.site_title = "Segundo titulo de la pestaña"
 
+# para extender la funcionalidad del admin del framework se debe ir al archivo 'admin.py' y declarar una clase de configuracion para la clase a extender
+from django.contrib import admin
+from .models import NombreModelo, NombreModelo2
+
+class NombreModeloAdmin(admin.ModelAdmin):
+	# para que se vean los atributos en la tabla del panel de administracion de django se debe especificar en la tupla 'list_display'
+	list_display = ('atributo1', 'atributo2', 'atributo3 ')
+	# para añadir funcionalidad de busqueda se debe especificar en el arreglo 'search_fields', indicando el nombre del atributo 
+	search_fields = ['atributo1', 'atributo2']
+
+admin.site.register(NombreModelo)
+admin.site.register(NombreModelo2)
+
+# para mostrar en el front-end nombres distintos a los de los atributos en el back-end se debe especificar el 'verbose_name' dentro del archivo 'models.py'
+class NombreModelo(models.Model):
+	nombre_atributo_string = models.CharField(max_lenght=200, unique=True, verbose_name="nombre_distinto")
+	nombre_atributo_entero = models.IntegerField()
+
+
+# para agregar campos de filtrado al panel administrador de django se debe especificar los atributos en una tupla llamada 'list_filter' en el archivo 'admin.py'
+from django.contrib import admin
+from .models import NombreModelo, NombreModelo2
+class NombreModeloAdmin(admin.ModelAdmin):
+	list_display = ('atributo1', 'atributo2', 'atributo3 ')
+	search_fields = ['atributo1', 'atributo2']
+	list_filter = ('atributo1')
+
+# para cambiar los colores del template y sobreescribir las configuraciones de diseño del panel administrador se debe crear una carpeta en el MAIN_PROJECT llamada 'templates' y dentro de ella se debe crear otra de nombre 'admin', dentro de ella crearemos un archivo llamado 'base_site.html' y copiaremos el codigo que se encuentra en el repositorio publico de Django en GitHub para añadir estilos css adicionales
+{% extends "admin/base.html" %}
+{% block title %} {{ title }} | {{ site_title|default:_('Django site admin') }}{% endblock %}
+
+{% block extrastyle %}
+	<style>
+		#header{
+			background-color: blue;
+		}
+	</style>
+{% endblock extrastyle %}
+
+{% block branding %}{% endblock %}
+{% block nav-global %}{% endblock %}
 
 
 
@@ -213,3 +264,27 @@ INSTALLED_APPS = [
     ...
 ]
 ##########################################################################
+
+
+
+
+
+
+
+
+##########################################################################
+### GITHUB COMERCIAL ###
+##########################################################################
+#…or create a new repository on the command line
+echo "# chuleta_django" >> README.md
+git init
+git add README.md
+git commit -m "first commit"
+git remote add origin https://github.com/shalooooo/chuleta_django.git
+git push -u origin master
+#…or push an existing repository from the command line
+git remote add origin https://github.com/shalooooo/chuleta_django.git
+git push -u origin master
+##########################################################################
+
+
