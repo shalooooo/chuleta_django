@@ -119,9 +119,25 @@ class NombreModelo(models.Model):
 class NombreModelo2(models.Model):
 	nombre_llave_foranea = models.ForeingKey(NombreModelo, on_delete=models.CASCADE)
 
-# para realizar la migracion se debe ejecutar el siguiente comando
+# para crear las migraciones en base a los modelos (models.py)
 python manage.py makemigrations
+# para crear las migraciones en base a los modelos (models.py) de una app en particular
+python manage.py makemigrations nombre_app
+# para volcar la migracion se debe ejecutar el siguiente comando
 python manage.py migrate 
+# para volcar las migraciones de una app en particular 
+python manage.py migrate nombre_app 
+# para revertir todas las migraciones de una app en particular 
+python manage.py migrate nombre_app zero
+# para volcar las migraciones de una app en particular hasta una migracion en particular
+# (sirve para revertir migraciones)
+python manage.py migrate nombre_app 000X_nombre_migracion
+
+# para desplegar el sql de una migracion en particular de una app
+python manage.py sqlmigrate nombre_app 000X_nombre_migracion
+# para desplegar la lista de migraciones existentes actualmente
+python manage.py showmigrations
+
 
 # para ir al backend por defecto que crea el framework django se debe ir a la url /admin
 # para registrar los modelos que se desean agregar al backend se deben agregar las siguientes lineas en el archivo 'admin.py' 
