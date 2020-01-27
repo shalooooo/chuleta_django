@@ -1,5 +1,38 @@
 ### Chuleta Django ###
 
+### Virtual Enviroment ###
+# crear ambiente virtual con nombre 'env'
+virtualenv env
+
+# crear ambiente virtual con nombre 'venv' para python version 3
+python3 -m venv venv
+
+# crear ambiente virtual con nombre 'venv' para python version 2
+virtualenv -p python2.7 venv
+
+# crear ambiente virtual con nombre 'venv' para python version 3.5
+virtualenv -p /usr/local/bin/python3.5 venv
+
+# ingresar al ambiente virtual 'env'
+source env/bin/activate
+
+# acceder al ambiente virtual sin ser activado
+venv/bin/python
+
+# salir del ambiente virtual
+deactivate
+
+# extraer dependencias de librerias de un ambiente virtual
+env/bin/pip freeze > requirements.txt
+
+# instalar dependencias extraidas en otro ambien virtual
+env2/bin/pip install -r requirements.txt
+
+# eliminar un ambiente virtual
+rm -rf venv
+
+### Virtual Enviroment ###
+
 # instalacion de django
 pip install django
 
